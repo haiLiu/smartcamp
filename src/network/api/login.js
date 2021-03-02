@@ -1,7 +1,9 @@
 import {request} from "../server/request"
 
-export function login() {
+export function login(param) {
   return request({
-    url: "/home/multidata"
+    method: 'post',
+    url: "/login",
+    params: param,
   })
 }

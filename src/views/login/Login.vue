@@ -33,7 +33,7 @@ export default {
     return {
       //这是登录表单的数据绑定对象
       loginForm: {
-        username: "user",
+        username: "Admin",
         password: "123456"
       },
       //这是表单的验证规则对象
@@ -61,10 +61,11 @@ export default {
     loginBtn() {
       this.$refs.loginFormRef.validate(valid =>{
         if(!valid) return;
-        login().then(res => {
+        login(this.loginForm).then(res => {
           this.$message.success("登录成功");
           console.log(res);
-          var resToken = "lhy"
+          
+          var resToken = res.data.token;
           //1.将登录成功之后的token,保存到客户端的sessionStorage中
             //   1.1 项目中除了登录之外的其他API接口,必须在登录之后才能访问
             //   2.2 token只应当在当前网站打开期间生效,所以将token保存在seesionStorage中

@@ -66,13 +66,7 @@ import axios from 'axios'
     return instance(config)
 }  */
 
-/* const post = (url,data) => {
-  return instance({
-    method: 'post',
-    url,
-    data
-  })
-} */
+
 export function request(config) {
 //1.创建axios的实例
   const instance = axios.create({
@@ -102,7 +96,6 @@ export function request(config) {
   }, err => {
     console.log(err);
   })
-  
   // 3.发送真正的请求
   return instance(config)
 } 

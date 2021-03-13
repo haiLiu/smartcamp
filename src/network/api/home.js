@@ -8,11 +8,3 @@ export function menuList() {
   })
 }
 
-/* 用户列表 */
-export function userList(param) {
-  return request({
-    method: "get",
-    url: "users",
-    params: param,
-  })
-}

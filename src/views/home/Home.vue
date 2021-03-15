@@ -11,7 +11,9 @@
     <el-container>
       <!-- 侧边栏 -->
       <el-aside :width="isCollapse ? '64px' : '200px'">
-        <div class="toggle-button" @click="toggleCollapse"><span class="el-icon-s-fold"></span></div>
+        <div class="toggle-button" @click="toggleCollapse">
+          <span :class="{'el-icon-s-fold':iconShow,iconActive: isCollapse}"></span>
+        </div>
         <!-- 侧边栏菜单区域 -->
           <el-menu background-color="#333744" text-color="#fff" 
             active-text-color="#01C5AA" :unique-opened="true"
@@ -66,7 +68,9 @@ export default {
       //是否折叠
       isCollapse: true,
       //被激活的链接地址
-      activePath: ''
+      activePath: '',
+      iconShow: true,
+
 
     }
   },
@@ -140,6 +144,14 @@ export default {
   color: #fff;
   text-align: center;
   cursor: pointer;
+  .iconActive{
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    transition: .38s;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+  }
 }
+
 
 </style>

@@ -1,4 +1,7 @@
 import axios from 'axios'
+//导入 NProgress 包对应的Js和css
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 /* export function request(config,success,failure) {
   //1.创建axios的实例
@@ -76,7 +79,11 @@ export function request(config) {
   
 // 2.axios的拦截器
   // 2.1请求拦截的作用
+
   instance.interceptors.request.use(config => {
+
+  //在request拦截器中，展示进度条NProgress.start()
+    NProgress.start()
     // console.log(config);
     // 1.比如config中的一些信息不符合服务器的要求
     // 2.比如每次发送网络请求时，希望在界面中显示一个请求的图标
@@ -91,6 +98,9 @@ export function request(config) {
 
   // 2.2 响应拦截
   instance.interceptors.response.use(res => {
+    
+  // 在response拦截器中，隐藏进度条NProgress.done()
+    NProgress.done()
     // console.log(res);
     return res.data;
   }, err => {

@@ -31,3 +31,12 @@ export function deleteRight(roleId,rightId) {
     url: `roles/${roleId}/rights/${rightId}`
   })
 }
+
+/* 给角色添加权限 */
+export function assignRight(roleId,data) {
+  return request({
+    method: "post",
+    url: `roles/${roleId}/rights`,
+    data: data
+  })
+}

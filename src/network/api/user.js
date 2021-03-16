@@ -32,7 +32,8 @@ export function addUser(param) {
 export function editUser(id,params) {
   return request({
     method: "put",
-    url: "users/"+id+','+params
+    url: "users/"+id,
+    data: params
   })
 }
 
@@ -41,5 +42,14 @@ export function deleteUser(id) {
   return request({
     method: "delete",
     url: "users/"+id
+  })
+}
+
+/* 给用户分配角色 */
+export function assignUser(id,param) {
+  return request({
+    method: "put",
+    url: "users/"+id+"/role",
+    data: param
   })
 }

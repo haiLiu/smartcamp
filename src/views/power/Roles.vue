@@ -76,17 +76,19 @@
     <el-dialog
       title="分配权限"
       :visible.sync="setRightDialogVisible"
-      width="50%">
+      width="50%"
+      @close="setRightDialogClosed">
       <!-- 树形空间 -->
       <el-tree :data="rightsList" 
         :props="treeProps" 
         show-checkbox 
         node-key="id"
         :default-expand-all="true"
-        :default-checked-keys="defKeys"></el-tree>
+        :default-checked-keys="defKeys"
+        ref="treeRef"></el-tree>
       <span slot="footer" class="dialog-footer">
         <el-button @click="setRightDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="setRightDialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="allotRights">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -94,7 +96,7 @@
 </template>
 
 <script>
-import { rolesList,rightsTree,deleteRight } from '@/network/api/power.js'
+import { rolesList,rightsTree,deleteRight,assignRight } from '@/network/api/power.js'
 
 export default {
   data() {
@@ -120,7 +122,8 @@ export default {
         children: 'children'
       },
       //默认选中的节点Id值数组
-      defKeys: []
+      defKeys: [],
+      roleId: ''//当前即将分配权限的角色Id
     }
   },
   created() {
@@ -134,7 +137,7 @@ export default {
         if(res.meta.status != 200) {
           return this.$message.error("获取列表失败");
         }
-        this.rolesList = res.data;
+        this.$set(this,'rolesList',res.data);
       })
 
     },
@@ -176,6 +179,7 @@ export default {
     },
     //展示分配权限的对话框
     showSetRightDialog(role) {
+      this.roleId = role.id
       //获取所有权限的数据
       rightsTree().then(res => {
         if(res.meta.status !==200 ) {
@@ -203,6 +207,31 @@ export default {
       node.children.forEach(element => {
         this.getLeafKeys(element,arr)  
       });
+    },
+    //监听分配权限对话框的关闭事件
+    setRightDialogClosed() {
+      this.defKeys = []
+    },
+    //点击为角色分配权限
+    allotRights() {
+      const keys = [
+        ...this.$refs.treeRef.getCheckedKeys(),
+        ...this.$refs.treeRef.getHalfCheckedKeys()
+      ]
+      const idStr = keys.join(',');
+      let param = {rids: idStr}
+      assignRight(this.roleId,param).then(res => {
+        if(res.meta.status !== 200) {
+          return this.$message.error('分配权限失败')
+        }
+        this.$message.success("分配权限成功！");
+        this.setRightDialogVisible = false;
+        this.getRolesList();
+      })
+
+
+
+
     }
   }
 

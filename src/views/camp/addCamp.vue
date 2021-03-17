@@ -18,12 +18,62 @@
 
           <!-- 表单部分 -->
           <el-form class="addCampForm" :model="addCampForm" :rules="addCampRules" ref="addCampRef" label-width="100px">
-              <el-form-item label="营地名称" prop="name" required>
-                  <el-input type="text" placeholder="请输入营地名称" v-model="addCampForm.campName"/>
-              </el-form-item>
-              <el-form-item label="营地管理员" prop="name" required>
-                  <el-input type="text" placeholder="请输入营地管理员姓名" v-model="addCampForm.campManager"/>
-              </el-form-item>
+              <el-row>
+                  <el-col :offset="1" :span="6">
+                    <el-form-item class="formItem" label="营地名称" prop="name" required>
+                        <el-input type="text" placeholder="请输入营地名称" v-model="addCampForm.campName"/>
+                    </el-form-item>
+                    <el-form-item class="formItem" label="管理员" prop="name" required>
+                        <el-input type="text" placeholder="请输入管理员姓名" v-model="addCampForm.campManager"/>
+                    </el-form-item>
+                    <el-form-item class="formItem" label="营地电话" prop="name" required>
+                        <el-input type="text" placeholder="请输入联系电话" v-model="addCampForm.campManager"/>
+                    </el-form-item>
+                    <el-form-item class="formItem" label="营地地址" prop="name" required>
+                        <el-input type="text" placeholder="请输入营地地址" v-model="addCampForm.campManager"/>
+                    </el-form-item>
+                    <el-form-item class="formItem" label="营地简介" prop="name" required>
+                        <el-input type="text" placeholder="请输入营地详情" v-model="addCampForm.campManager"/>
+                    </el-form-item>
+                    <el-form-item class="formItem" label="营业执照" prop="name" required>
+                        <el-input type="text" placeholder="请输入管理员姓名" v-model="addCampForm.campManager"/>
+                    </el-form-item>
+                    <el-form-item class="formItem" label="信用注册号" prop="name" required>
+                        <el-input type="text" placeholder="请输入管理员姓名" v-model="addCampForm.campManager"/>
+                    </el-form-item>
+                  </el-col>
+              
+                  <el-col :offset="1" :span="10">
+                    <el-form-item label="开放时间" prop="name">
+                        <span>1</span>
+                        <el-checkbox-group v-model="addCampForm.openTime">
+                            <el-checkbox v-for="item in openTimeList" :label="item.name" :key="item.id">{{item.name}}</el-checkbox>
+                        </el-checkbox-group>
+                    </el-form-item>
+                    <el-form-item label="开放对象" prop="name">
+                        <el-checkbox-group  v-model="addCampForm.campObject">
+                            <el-checkbox v-for="item in campObjectList" :label="item.name" :key="item.id">{{item.name}}</el-checkbox>
+                        </el-checkbox-group>
+                    </el-form-item>
+                    <el-form-item label="营地区位" prop="name">
+                        <el-checkbox-group  v-model="addCampForm.campLocation">
+                            <el-checkbox v-for="item in campLocationList" :label="item.name" :key="item.id">{{item.name}}</el-checkbox>
+                        </el-checkbox-group>
+                    </el-form-item>
+                    <el-form-item label="盈利性质" prop="name">
+                        <el-checkbox-group  v-model="addCampForm.profit">
+                            <el-checkbox v-for="item in profitList" :label="item.name" :key="item.id">{{item.name}}</el-checkbox>
+                        </el-checkbox-group>
+                    </el-form-item>
+                    <el-form-item label="营地特色" prop="name">
+                        <el-checkbox-group  v-model="addCampForm.features">
+                            <el-checkbox v-for="item in featuresList" :label="item.name" :key="item.id">{{item.name}}</el-checkbox>
+                        </el-checkbox-group>
+                    </el-form-item>
+                  </el-col>
+              </el-row>
+
+              
           </el-form>
 
 
@@ -44,15 +94,27 @@ export default {
                 campPhone: null, //营地电话
                 campAddress: "", //营地地址
                 campStatus: [{id:0,status:"营业"},{id:1,status:"歇业"}], //营地地址
-                campDescribe: "", //营地地址
+                campDescribe: "", //营地简介
                 campLicense: "", //营业执照
                 licenseCode: "", //社会信用注册号
-                openTime: "", //开放时间
-                campObject: "",//开放对象
-                campLocation: "",//营地区位
+                openTime: [],//开放时间
+                campObject: [],//开放对象
+                campLocation: [],//营地区位
+                profit: [], //盈利性质
+                features: [],//特点
+
             },
             addCampRules: {},
-            addCampRef: ""
+            addCampRef: "",
+            openTimeList: [{name:"临时营地",id: 0},{name:"日间营地",id: 1},
+                {name:"周末营地",id: 2},{name:"假日营地",id: 3}], //开放时间
+            campObjectList:  [{name:"团体型营地",id: 0},{name:"家庭型营地",id: 1},
+                {name:"学生营地",id: 2},{name:"儿童营地",id: 3},{name:"亲子营地",id: 4}],//开放对象
+            campLocationList: [{name:"都市型营地",id: 0},{name:"近郊型营地",id: 1},
+                {name:"过境型营地",id: 2},{name:"风景区营地",id: 3},{name:"度假型营地",id: 4}],//营地区位
+            profitList: [{name:"公益性营地",id: 0},{name:"商业性营地",id: 1}], //盈利性质
+            featuresList: [{name:"运动型营地",id: 0},{name:"教育训练营地",id: 1},
+                {name:"娱乐型营地",id: 2},{name:"休闲汽车营地",id: 3},{name:"团建型营地",id: 4}],//营地特点
         }
     },
     methods: {
@@ -90,6 +152,11 @@ export default {
 	}
 .addCampForm {
     margin-top: 20px;
-    width: 420px
+}
+.formItem {
+    width: 420px;
+}
+.el-form-item__label {
+    font-weight: bold;
 }
 </style>

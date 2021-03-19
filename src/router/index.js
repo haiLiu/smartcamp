@@ -10,6 +10,7 @@ import Rights from '@/views/power/Rights.vue'
 import Roles from '@/views/power/Roles.vue'
 import Camp from '@/views/camp/Camp.vue'
 import addCamp from '@/views/camp/addCamp.vue'
+import detailCamp from '@/views/camp/detailCamp.vue'
 
 
 //1.安装插件
@@ -31,7 +32,7 @@ const routes = [
       {path: '/roles', component: Roles},
       {path: '/goods', component: Camp},
       {path: '/params', component: addCamp},
-
+      {path: '/categories', component: detailCamp},
     ]
   }, 
 ]

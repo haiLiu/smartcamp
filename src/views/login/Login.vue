@@ -5,6 +5,10 @@
       <div class="logo_box">
         <img src="@/assets/img/logo.png">
       </div>
+      <!-- 标题 -->
+      <div class="logo_title">
+        营地管理系统
+      </div>
       <!-- 登录表单区域 -->
       <el-form :model="loginForm" :rules="loginFormRules" ref="loginFormRef" label-width="0px" class="login_form">
         <!-- 账号 -->
@@ -16,9 +20,11 @@
           <el-input type="password" v-model="loginForm.password" prefix-icon="el-icon-lock" clearable></el-input>
         </el-form-item>
         <!-- 按钮区域 -->
-        <el-form-item class="btns">
-          <el-button @click="loginBtn" type="primary">登录</el-button>
-          <el-button @click="resetLoginForm(loginForm)" type="info">重置</el-button>
+        <el-form-item>
+          <el-button class="btnLogin" @click="loginBtn" type="primary">登录</el-button>
+        </el-form-item>
+        <el-form-item align="right">
+          <a class="btnRegister" href="#" @click="goRegister">去注册？</a>
         </el-form-item>
       </el-form>
     </div>
@@ -54,10 +60,7 @@ export default {
     }
   },
   methods: {
-    //点击重置按钮,重置登录表单
-    resetLoginForm() {
-      this.$refs.loginFormRef.resetFields();
-    },
+    //登录
     loginBtn() {
       this.$refs.loginFormRef.validate(valid =>{
         if(!valid) return;
@@ -75,6 +78,11 @@ export default {
 
         })
       })
+    },
+    //注册
+    goRegister() {
+      this.$router.push('register');
+
     }
   }
 
@@ -93,20 +101,20 @@ export default {
 }
 .login_box{
   width: 450px;
-  height: 300px;
+  height: 360px;
   background-color: #fff;
   border-radius: 3px;
   position: relative;
 
   .logo_box{
-    height: 130px;
-    width: 130px;
+    height: 80px;
+    width: 80px;
     border-radius: 50%;
     padding: 10px;
     box-shadow: 0 0 10px #ddd;
     position: absolute;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,-66%);
     img{
       width: 100%;
       height: 100%;
@@ -114,17 +122,31 @@ export default {
       background-color: #fff;
     } 
   }
+  .logo_title{
+    display: flex;
+    justify-content: center;
+    margin-top: 45px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #2b4b6b;
+  }
   .login_form{
     position: absolute;
     bottom: 0px;
     width: 100%;
-    padding: 0px 20px;
+    padding: 0px 40px;
     box-sizing: border-box;
 
   }
-  .btns {
-    display: flex;
-    justify-content: flex-end;
+  .btnLogin{
+    width: 100%;
+  }
+  .btnRegister{
+    text-decoration: none;
+    color: #409EFF;
+  }
+  a:hover{
+    color: #2b4b6b;
   }
 }
 

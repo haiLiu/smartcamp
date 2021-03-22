@@ -33,7 +33,7 @@
               <div class="campFont">
                 <div class="campTitle">
                   <span>{{item.campName}}</span>
-                  <el-button type="text" @click="delectCamp(item.campName)" class="el-icon-delete-solid deleteIcon"></el-button>
+                  <el-button type="text" @click="delectCamp(index)" class="el-icon-delete-solid deleteIcon"></el-button>
                 </div>
                 <div class="bottom clearfix">
                   <div class="campDescribe">{{ item.campDescribe }}</div>
@@ -95,7 +95,7 @@ export default {
       }
     },
     created(){
-      //this.getCampList();
+      this.getCampList();
 
     },
     methods: {
@@ -121,12 +121,13 @@ export default {
           this.$router.push('/params')
       },
       //删除营地
-      delectCamp(campName) {
+      delectCamp(index) {
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
+          this.campList.splice(index,1);
           this.$message({
             type: 'success',
             message: '删除成功!'

@@ -1,4 +1,17 @@
+const proxyObj = {}
+proxyObj['/'] = {
+  target: 'https://jsonplaceholder.typicode.com/posts/',
+  changeOrigin: true,
+  pathRewrite: {
+    '^/': ''
+  }
+}
 module.exports = {
+  devServer: {
+    host: 'localhost',
+    port: 8080,
+    proxy: proxyObj
+  },
   configureWebpack: {
     resolve: {
       alias: {

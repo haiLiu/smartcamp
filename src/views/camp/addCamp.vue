@@ -201,7 +201,7 @@ export default {
         createCamp(){
             console.log(this.addCampForm,"营地新增")
             let data = this.addCampForm;
-            this.$router.push({ path: '/goods', query: data })
+            this.$router.push({ path: '/goods', params: data })
         }
     }
 

@@ -101,8 +101,8 @@ export default {
     methods: {
         //获取营地列表
       getCampList() {
-        if(this.$route.query){
-          this.campList.push(this.$route.query);
+        if(this.$route.params.length>0){
+           this.campList.push(this.$route.params);
           console.log(this.campList,"campList");
 
         }
